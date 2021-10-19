@@ -25,8 +25,8 @@ public class Clients {
 //		
 //	}
 
-	String nomClient[] = { "Dupont", "TheCat", "Shoto" };
-	String prenomClient[] = { "Jean", "Billy", "Karma" };
+	String nomClient[] = { "Callet", "TheCat", "Shoto" };
+	String prenomClient[] = { "Kevin", "Billy", "Karma" };
 	String numeroClient[] = { "0616186124", "0615482659", "0623147859" };
 	String mailClient[] = { "j.dupont@gmail.com", "b.thecat@gmail.com", "k.shoto@gmail.com" };
 	String cbClient[] = { "0000000000000000", "1111111111111111", "2222222222222222" };
@@ -35,9 +35,9 @@ public class Clients {
 		String loginClient[] = { "0", "1234567890", "2345678901" };
 		String mdpClient[] = { "0", "billou", "karmater" };
 		Scanner in = new Scanner(System.in);
-		System.out.print("Votre login: ");
+		System.out.print("Entrez votre login : ");
 		String login = in.next();
-		System.out.print("Votre mdp: ");
+		System.out.print("Entrez votre mot de passe : ");
 		String mdp = in.next();
 		for (int i = 0; i < 3; i++) {
 			if (login.equals(loginClient[i]) && mdp.equals(mdpClient[i])) {
@@ -45,12 +45,10 @@ public class Clients {
 				break;
 			}
 			if (i == 2 && (!login.equals(loginClient[i]) || !mdp.equals(mdpClient[i]))) {
-				System.out.println("login ou mdp faux");
+				System.out.println("Login ou mot de passe erronée");
 			}
-
 		}
 		return connexionClient;
-
 	}
 
 	public int getId() {

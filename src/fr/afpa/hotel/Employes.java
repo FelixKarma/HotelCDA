@@ -11,13 +11,11 @@ public class Employes {
 	private String mdp;
 
 	public Employes(String unNom, String unPrenom, String unNumero, String unLogin, String unMdp) {
-
 		nom = unNom;
 		prenom = unPrenom;
 		numero = unNumero;
 		login = unLogin;
 		mdp = unMdp;
-
 	}
 
 	String nomEmp[] = { "0", "0", "0" };

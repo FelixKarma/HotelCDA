@@ -46,7 +46,6 @@ public class Chambres {
 		occupation = uneOcuppation;
 		nbRooms = leNbRooms;
 		nomClt = unNomClt;
-
 	}
 
 	public int getId() {

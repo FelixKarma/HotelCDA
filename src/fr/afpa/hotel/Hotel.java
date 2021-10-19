@@ -83,10 +83,9 @@ public class Hotel {
 					int libre = 1;
 					String libreTr = Integer.toString(libre);
 					libreTr = "Libre";
-
 					System.out.println("  __" + "\n");
 					System.out.println(" | " + "Chambre " + numberRoom + " : " + libreTr);
-					System.out.println(" | " + typeT[i]);
+					System.out.println(" | " + "Type : " + typeT[i]);
 					System.out.println("  __");
 				} else {
 					int reserver = 0;
@@ -94,11 +93,11 @@ public class Hotel {
 					reserverTr = "Réserver";
 					System.out.println("  __" + "\n");
 					System.out.println(" | " + "Chambre " + numberRoom + " : " + reserverTr);
-					System.out.println(" | " + typeT[i]);
-					System.out.println(" | " + "Par " + occupationT[i]);
-					System.out.println(" | " + "Au nom de " + rooms[temp].getNomClt());
-					System.out.println(" | Du " + StartDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-					System.out.println(" | au " + EndDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+					System.out.println(" | " + "Type : " + typeT[i]);
+					System.out.println(" | " + "Type d'occupant : " + occupationT[i]);
+					System.out.println(" | " + "Nom occupant " + rooms[temp].getNomClt());
+					System.out.println(" | Du : " + StartDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+					System.out.println(" | Au : " + EndDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 					System.out.println("  __");
 				}
 				temp++;
@@ -114,8 +113,9 @@ public class Hotel {
 			}
 
 		}
-		System.out.println("Il y a " + rr + " chambres de réservées");
-
+		System.out.println("  _____" + "\n");
+		System.out.println(" | " + "Il y a " + rr + " chambres de réservées !");
+		System.out.println("  _____" + "\n");
 	}
 
 	public static void freeRooms() {
@@ -125,8 +125,9 @@ public class Hotel {
 				rl++;
 			}
 		}
-		System.out.println("Il y a " + rl + " chambres de libres");
-
+		System.out.println("  _____" + "\n");
+		System.out.println(" | " + "Il y a " + rl + " chambres de libres !");
+		System.out.println("  _____" + "\n");
 	}
 
 	public void freeRoomsWithInfo() {
@@ -140,10 +141,10 @@ public class Hotel {
 					libreTr = "Libre";
 					System.out.println("  __" + "\n");
 					System.out.println(" | " + "Chambre " + temp + " : " + libreTr);
-					System.out.println(" | " + typeT[i]);
-					System.out.println(" | " + superficyT[i]);
-					System.out.println(" | Avec vue sur " + viewT[i]);
-					System.out.println(" | " + priceT[i] + " €");
+					System.out.println(" | " + "Type : " + typeT[i]);
+					System.out.println(" | " + "Superficie : " + superficyT[i]);
+					System.out.println(" | Vue sur : " + viewT[i]);
+					System.out.println(" | " + "Prix : " + priceT[i] + " €");
 					System.out.println("  __");
 				}
 				temp++;
@@ -163,14 +164,18 @@ public class Hotel {
 				temp++;
 			}
 		}
-		System.out.println("Le chiffre d'affaire jusqu'à ajd est de " + chiffreAffaire + " €");
+		System.out.println("  __" + "\n");
+		System.out.println(" | " + "Le chiffre d'affaire jusqu'à aujourd'hui est de " + chiffreAffaire + " €");
+		System.out.println("  __");
 	}
 
 	public void firstFreeRoom() {
 		for (int i = 0; i < rooms.length; i++) {
 			if (dispo[i] == true) {
 				int j = i + 1;
-				System.out.println("Chambre " + j + " Libre");
+				System.out.println("  __" + "\n");
+				System.out.println(" | " + "Chambre " + j + " Libre !");
+				System.out.println("  __");
 				break;
 			}
 		}
@@ -180,7 +185,9 @@ public class Hotel {
 		for (int i = rooms.length - 1; i >= 0; i--) {
 			if (dispo[i] == true) {
 				int j = i + 1;
-				System.out.println("Chambre " + j + " Libre");
+				System.out.println("  __" + "\n");
+				System.out.println(" | " + "Chambre " + j + " Libre");
+				System.out.println("  __");
 				break;
 			}
 		}
