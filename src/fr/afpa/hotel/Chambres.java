@@ -2,6 +2,7 @@ package fr.afpa.hotel;
 
 public class Chambres {
 	
+	private int id;
 	private String view;
 	private String superficy;
 	private int price;
@@ -9,6 +10,9 @@ public class Chambres {
 	private String options;
 	private String occupation;
 	private int nbRooms;
+	private String nomClt;
+//	private boolean reserved;
+	
 	
 	String typeT[]= {"Chambre Vue Piscine","Chambre Vue Jardin","Chambre Vue Océan","Chambre vue imprenable sur l'océan","Suite CDA","Suite Executive","Suite Ambassadeur","Suite Royale"};
 	String superficyT[]= {"44 mètres carrés","44 mètres carrés","44 mètres carrés","44 mètres carrés","82 mètres carrés","140 mètres carrés","230 mètres carrés","342 mètres carrés"};
@@ -25,8 +29,9 @@ public class Chambres {
 			"Sèche-cheveux|Coffre-fort dans la chambre|Minibar|Téléphone |Accès Internet haut débit sans fil|Lecteur DVD sur demande|Télévision par câble|Climatisation|Service aux chambres 24h/24|Concierge 24h/24",
 			"Sèche-cheveux|Coffre-fort dans la chambre|Minibar|Téléphone |Accès Internet haut débit sans fil|Lecteur DVD sur demande|Télévision par câble|Climatisation|Service aux chambres 24h/24|Concierge 24h/24"};
 	
-public Chambres(String unType, String uneSuperficy,String unView,String uneOcuppation, int unPrice, int leNbRooms, String desOptions) {
+public Chambres(int unId, String unType, String uneSuperficy,String unView,String uneOcuppation, int unPrice, int leNbRooms, String desOptions, String unNomClt/*,boolean uneReserved*/) {
 		
+	id=unId;
 	view=unView;
 	superficy=uneSuperficy;
 	price=unPrice;
@@ -34,9 +39,19 @@ public Chambres(String unType, String uneSuperficy,String unView,String uneOcupp
 	options=desOptions;
 	occupation=uneOcuppation;
 	nbRooms=leNbRooms;
+	nomClt=unNomClt;
+//	reserved=uneReserved;
 		
 	}
 
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 public int getNbRooms() {
 	return nbRooms;
@@ -94,4 +109,20 @@ public void setOptions(String options) {
 	this.options = options;
 }
 
+public String getNomClt() {
+		return nomClt;
+	}
+
+
+	public void setNomClt(String nomClt) {
+		this.nomClt = nomClt;
+	}
+	
+//	public boolean isReserved() {
+//		return reserved;
+//	}
+//
+//	public void setReserved(boolean reserved) {
+//		this.reserved = reserved;
+//	}
 }

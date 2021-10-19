@@ -55,7 +55,7 @@ public class Main {
 					hotel.reservedRooms();
 					break;
 				case 'C':
-					hotel.freeRooms();
+					Hotel.freeRooms();
 					hotel.freeRoomsWithInfo();
 					break;
 				case 'D':

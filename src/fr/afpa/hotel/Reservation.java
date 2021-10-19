@@ -9,11 +9,8 @@ public class Reservation {
 
 	int id;
 
-	Chambres chambre = new Chambres(null, null, null, null, id, id, null);
-	
-	public void reservation(int unId) {
-		id = unId;
-	}
+	Chambres chambre = new Chambres(id, null, null, null, null, id, id, null, null);
+	Clients client = new Clients();
 
 	public void reserver() {
 
@@ -21,6 +18,7 @@ public class Reservation {
 		Scanner in = new Scanner(System.in);
 		Hotel.freeRooms();
 		int rl=0;
+		int roomForPrice=0;
 		do {
 
 			for (int i = 0; i < chambre.typeT.length; i++) {
@@ -49,6 +47,7 @@ public class Reservation {
 				System.out.println("Disponible : " + rlt0); // ajouter une soustraction des chambres deja
 																	// reserver
 				System.out.println("-----------");
+				roomForPrice=0;
 				break;
 			case 'B':
 				for(int i=chambre.nbRoomsT[0];i<chambre.nbRoomsT[1]+chambre.nbRoomsT[0];i++) {
@@ -66,6 +65,7 @@ public class Reservation {
 				System.out.println("Disponible : " + rlt1); // ajouter une soustraction des chambres deja
 																	// reserver
 				System.out.println("-----------");
+				roomForPrice=1;
 				break;
 			case 'C':
 				System.out.println("-----------");
@@ -76,6 +76,7 @@ public class Reservation {
 				System.out.println("Disponible : " + chambre.nbRoomsT[2]); // ajouter une soustraction des chambres deja
 																	// reserver
 				System.out.println("-----------");
+				roomForPrice=2;
 				break;
 			case 'D':
 				System.out.println("-----------");
@@ -86,6 +87,7 @@ public class Reservation {
 				System.out.println("Disponible : " + chambre.nbRoomsT[3]); // ajouter une soustraction des chambres deja
 																	// reserver
 				System.out.println("-----------");
+				roomForPrice=3;
 			default:
 				break;
 			}
@@ -95,8 +97,8 @@ public class Reservation {
 		System.out.println("Selectionez cette chambre Oui/Non (mot) ");
 		String rep = in.next();
 		float days=0;
-
 		String fin;
+		boolean nomCorrect=false;
 		
 		//demander la date
 		for (int j = 0; j < 2;j++) {
@@ -104,47 +106,80 @@ public class Reservation {
 				
 				System.out.println("Jusqu'à quand ? ");
 				do {
-					System.out.print("Annee ? "); int annee = in.nextInt();
-					System.out.print("Mois ? "); int mois = in.nextInt();
-					System.out.print("Jour ? "); int jour = in.nextInt();
-
-					 fin = ""+jour+"/"+mois+"/"+annee;	
+					System.out.print("Annee ? "); String annee = in.next();
+					System.out.print("Mois ? "); String mois = in.next();
+					System.out.print("Jour ? "); String jour = in.next();
+					
+					 fin = ""+annee+"-"+mois+"-"+jour;	
 					 days = dateReserve(fin);
 					if(days>30) {
-						System.out.println("Vous ne pouvez réserver que la chambre qu'un mois");
+						System.out.println("Vous ne pouvez réserver la chambre qu'un mois");
 					}
 				}while(days>30);
 				
 		// demande d'argent
+				System.out.print("Votre nom : ");
+				String name=in.next();
+				for(int i=0;i<3;i++) {
+					if(name.equalsIgnoreCase(client.nomClient[i])) {
+						System.out.println("Nom enregisté");
+						nomCorrect=true;
+						break;
+					}
+					if(i==2 && !name.equalsIgnoreCase(client.nomClient[i])) {
+						System.out.println("Nom incorrect");
+						
+					}
+				}
+				if(nomCorrect) {
+					float argent=(days+1)*chambre.priceT[roomForPrice];
+					System.out.println("Le prix de votre réservation est de : "+argent);
+					System.out.print("Veuillez donner votre numero de carte : ");
+					String carte=in.next();
+					
+					for(int i=0;i<client.cbClient.length;i++) {
+						if(carte.equals(client.cbClient[i])) {
+							System.out.println("Payement validé");
+							System.out.println("Chambre réservée !");				
+							
+								for (int k = 0; k < Hotel.dispo.length ; k++) {
+									if (Hotel.dispo[k] == true) {
+										Hotel.dispo[k] =false;
+										LocalDate dateFin = LocalDate.parse(fin);
+										Hotel.StartDate[k]=LocalDate.now();
+										Hotel.EndDate[k]=dateFin;
+										Hotel.rooms[k] = new Chambres(k, chambre.typeT[roomForPrice], chambre.superficyT[roomForPrice], chambre.viewT[roomForPrice], chambre.occupationT[roomForPrice], chambre.priceT[roomForPrice], chambre.nbRoomsT[roomForPrice],
+												chambre.optionsT[roomForPrice],client.nomClient[i]);
+										break;
+									}
+								}
+							
+//							Hotel.rooms[i].isReserved()=false;
+							
+							break;
+						}
+						if(i==client.cbClient.length-1 &&!carte.equals(client.cbClient[i])) {
+							System.out.println("Payement refusé");
+							System.out.println("Chambre annulée !");
+						}
+					}
+				}
 				
-				
-				
-				
-				
-				
-				
-				System.out.println("Chambre reserver !");
 				break;
 			} else {
-				System.out.println("Chambre annuler !");
+				System.out.println("Chambre annulée !");
 				break;
 			}
 		}
-		
-			
-		
-				
-			
-			
 		
 	}
 	
 
 		  public static float dateReserve(String fin){
 		     float res = 0;
-		   SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		     try {
-		         Date dateAvant = sdf.parse("19/10/2021");
+		         Date dateAvant = new Date();
 		         Date dateApres = sdf.parse(fin);
 		         long diff = dateApres.getTime() - dateAvant.getTime();
 		         res = (diff / (1000*60*60*24));

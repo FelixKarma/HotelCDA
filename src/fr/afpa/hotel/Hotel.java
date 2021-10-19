@@ -8,10 +8,10 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.Scanner;
 
 public class Hotel {
-	Chambres rooms[] = new Chambres[65];
+	static Chambres rooms[] = new Chambres[65];
 	static boolean dispo[] = new boolean[65];
-	LocalDate StartDate[] = new LocalDate[65];
-	LocalDate EndDate[] = new LocalDate[65];
+	static LocalDate StartDate[] = new LocalDate[65];
+	static LocalDate EndDate[] = new LocalDate[65];
 
 	int temp = 0;
 	Random random = new Random();
@@ -21,6 +21,7 @@ public class Hotel {
 	int libre = 1;
 	int reserver = 0;
 	Scanner in = new Scanner(System.in);
+	Clients client = new Clients();
 	
 	
 	
@@ -50,33 +51,41 @@ public class Hotel {
 
 	public void listRooms() {
 		int temp = 0;
+		int idClient = 0;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < nbRoomsT[i]; j++) {
-				rooms[temp] = new Chambres(typeT[i], superficyT[i], viewT[i], occupationT[i], priceT[i], nbRoomsT[i],
-						optionsT[i]);
-				temp++;
 				boolean rand = random.nextBoolean();
-				dispo[temp - 1] = rand;
-				LocalDate start = LocalDate.of(2021, 01, 01);
-				LocalDate end = LocalDate.of(2021, 12, 31);
-
-				do {
-					randomDate1 = between(start, end);
-					StartDate[temp - 1] = randomDate1;
-					randomDate2 = between(start, end);
-					EndDate[temp - 1] = randomDate2;
-					comparer = randomDate1.compareTo(randomDate2);
-				} while (comparer != -1);              //A AMELIORER
+				dispo[temp] = rand;     //A supprimer
+				if(rand==false) {
+					idClient=random.nextInt(3);
+					
+					LocalDate start = LocalDate.of(2021, 01, 01);
+					LocalDate end = LocalDate.of(2021, 12, 31);
+	
+					do {
+						randomDate1 = between(start, end);
+						StartDate[temp] = randomDate1;
+						randomDate2 = between(start, end);
+						EndDate[temp] = randomDate2;
+						comparer = randomDate1.compareTo(randomDate2);
+					} while (comparer != -1);              //A AMELIORER
+				}
+				rooms[temp] = new Chambres(temp, typeT[i], superficyT[i], viewT[i], occupationT[i], priceT[i], nbRoomsT[i],
+						optionsT[i],client.nomClient[idClient]);
+				temp++;
+				
+				
+				
 			}
 		}
 	}
 
 	public void affichage() {
-		temp = 1;
+		temp = 0;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < nbRoomsT[i]; j++) {
 
-				if (dispo[temp - 1] == true) {
+				if (dispo[temp] == true) {
 					int libre = 1;
 					String libreTr = Integer.toString(libre);
 					libreTr = "Libre";
@@ -92,8 +101,9 @@ public class Hotel {
 					System.out.println(" | " + "Chambre " + temp + " : " + reserverTr);
 					System.out.println(" | " + typeT[i]);
 					System.out.println(" | " + "Par " + occupationT[i]);
-					System.out.println(" | Du " + StartDate[temp - 1].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-					System.out.println(" | au " + EndDate[temp - 1].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+					System.out.println(" | " + "Au nom de " + rooms[temp].getNomClt());
+					System.out.println(" | Du " + StartDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+					System.out.println(" | au " + EndDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 					System.out.println("  __");
 				}
 				temp++;
