@@ -183,22 +183,34 @@ public class Reservation {
 		System.out.println("Voulez-vous liberer votre chambre ? (oui ou non)");
 		Scanner in = new Scanner(System.in);
 		String liberty = in.next();
+		boolean clientFlag=false;
+		boolean roomFlag=false;
 
 		if (liberty.equalsIgnoreCase("Oui")) {
 			System.out.println("Votre nom svp : ");
 			String reponse = in.next();
 
 			for (int i = 0; i < client.nomClient.length; i++) {
-				if (reponse.equalsIgnoreCase(
-						client.nomClient[i]) /* || reponse.equalsIgnoreCase((String)Hotel.rooms[i].getId()) */) {
+				if (reponse.equalsIgnoreCase(client.nomClient[i])) {
+					clientFlag=true;
 				}
 			}
 
 			System.out.println("Votre numero de chambre svp : ");
 			int repNbChambre = in.nextInt();
-			for (int j = 0; j < Hotel.rooms.length; j++) {
-				if (repNbChambre-1 == (Hotel.rooms[j].getId())) {
-					System.out.println("Chambre libérée. A bientot");
+			for (int i = 0; i < Hotel.rooms.length; i++) {
+				if (repNbChambre-1 == (Hotel.rooms[i].getId())) {
+					roomFlag=true;
+				}
+			}
+			
+			if(clientFlag && roomFlag) {
+				for (int i = 0; i < Hotel.rooms.length; i++) {
+					if (i==repNbChambre-1) {
+						Hotel.dispo[i] = true;
+						Hotel.rooms[i]= new Chambres(id, null, null, null, null, id, id, null, null);
+						System.out.println("Chambre libérée. A bientot");
+					}
 				}
 			}
 
