@@ -2,10 +2,9 @@ package fr.afpa.hotel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Hotel {
 	static Chambres rooms[] = new Chambres[65];
@@ -22,11 +21,10 @@ public class Hotel {
 	int reserver = 0;
 	Scanner in = new Scanner(System.in);
 	Clients client = new Clients();
-	
-	
-	
-	String typeT[]= {"Chambre Vue Piscine","Chambre Vue Jardin","Chambre Vue Océan","Chambre vue imprenable sur l'océan","Suite CDA","Suite Executive","Suite Ambassadeur","Suite Royale"};
-	
+
+	String typeT[] = { "Chambre Vue Piscine", "Chambre Vue Jardin", "Chambre Vue Océan",
+			"Chambre vue imprenable sur l'océan", "Suite CDA", "Suite Executive", "Suite Ambassadeur", "Suite Royale" };
+
 	String superficyT[] = { "44 mètres carrés", "44 mètres carrés", "44 mètres carrés", "44 mètres carrés",
 			"82 mètres carrés", "140 mètres carrés", "230 mètres carrés", "342 mètres carrés" };
 	String viewT[] = { "Piscine Centrale", "Jardin, Forêt ou Golf", "Partielle Océan et Forêt ou Golf", "Océan",
@@ -47,35 +45,31 @@ public class Hotel {
 			"Sèche-cheveux|Coffre-fort dans la chambre|Minibar|Téléphone |Accès Internet haut débit sans fil|Lecteur DVD sur demande|Télévision par câble|Climatisation|Service aux chambres 24h/24|Concierge 24h/24",
 			"Sèche-cheveux|Coffre-fort dans la chambre|Minibar|Téléphone |Accès Internet haut débit sans fil|Lecteur DVD sur demande|Télévision par câble|Climatisation|Service aux chambres 24h/24|Concierge 24h/24" };
 
-	
-
 	public void listRooms() {
 		int temp = 0;
 		int idClient = 0;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < nbRoomsT[i]; j++) {
 				boolean rand = random.nextBoolean();
-				dispo[temp] = rand;     //A supprimer
-				if(rand==false) {
-					idClient=random.nextInt(3);
-					
+				dispo[temp] = rand;
+				if (rand == false) {
+					idClient = random.nextInt(3);
+
 					LocalDate start = LocalDate.of(2021, 01, 01);
 					LocalDate end = LocalDate.of(2021, 12, 31);
-	
+
 					do {
 						randomDate1 = between(start, end);
 						StartDate[temp] = randomDate1;
 						randomDate2 = between(start, end);
 						EndDate[temp] = randomDate2;
 						comparer = randomDate1.compareTo(randomDate2);
-					} while (comparer != -1);              //A AMELIORER
+					} while (comparer != -1); // A AMELIORER
 				}
-				rooms[temp] = new Chambres(temp, typeT[i], superficyT[i], viewT[i], occupationT[i], priceT[i], nbRoomsT[i],
-						optionsT[i],client.nomClient[idClient]);
+				rooms[temp] = new Chambres(temp, typeT[i], superficyT[i], viewT[i], occupationT[i], priceT[i],
+						nbRoomsT[i], optionsT[i], client.nomClient[idClient]);
 				temp++;
-				
-				
-				
+
 			}
 		}
 	}
@@ -84,13 +78,14 @@ public class Hotel {
 		temp = 0;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < nbRoomsT[i]; j++) {
-
+				int numberRoom = temp + 1;
 				if (dispo[temp] == true) {
 					int libre = 1;
 					String libreTr = Integer.toString(libre);
 					libreTr = "Libre";
+
 					System.out.println("  __" + "\n");
-					System.out.println(" | " + "Chambre " + temp + " : " + libreTr);
+					System.out.println(" | " + "Chambre " + numberRoom + " : " + libreTr);
 					System.out.println(" | " + typeT[i]);
 					System.out.println("  __");
 				} else {
@@ -98,7 +93,7 @@ public class Hotel {
 					String reserverTr = Integer.toString(reserver);
 					reserverTr = "Réserver";
 					System.out.println("  __" + "\n");
-					System.out.println(" | " + "Chambre " + temp + " : " + reserverTr);
+					System.out.println(" | " + "Chambre " + numberRoom + " : " + reserverTr);
 					System.out.println(" | " + typeT[i]);
 					System.out.println(" | " + "Par " + occupationT[i]);
 					System.out.println(" | " + "Au nom de " + rooms[temp].getNomClt());

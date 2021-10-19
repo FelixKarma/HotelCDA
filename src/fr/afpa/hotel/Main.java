@@ -68,6 +68,7 @@ public class Main {
 					reservation.reserver();
 					break;
 				case 'G':
+					reservation.liberer();
 					break;
 				case 'H':
 					break;
