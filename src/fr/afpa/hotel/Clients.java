@@ -3,7 +3,6 @@ package fr.afpa.hotel;
 import java.util.Scanner;
 
 public class Clients {
-
 	private int id;
 	private String nom;
 	private String prenom;
@@ -13,7 +12,7 @@ public class Clients {
 	private String login;
 	private String mdp;
 	static Scanner in = new Scanner(System.in);
-	
+
 	String nomClient[] = { "Callet", "TheCat", "Shoto" };
 	String prenomClient[] = { "Kevin", "Billy", "Karma" };
 	String numeroClient[] = { "0616186124", "0615482659", "0623147859" };
@@ -23,7 +22,7 @@ public class Clients {
 	static String mdpClient[] = { "0123456789", "1234567890", "2345678901" };
 
 	public static boolean connexionClt(boolean connexionClient) {
-			
+
 		System.out.print("Entrez votre login : ");
 		String login = in.next();
 		System.out.print("Entrez votre mot de passe : ");
@@ -39,15 +38,12 @@ public class Clients {
 		}
 		return connexionClient;
 	}
-	
+
 	public void affichageReservation() {
-		
 		for (int i = 0; i < 3; i++) {
 			if (login.equals(loginClient[i]) && mdp.equals(mdpClient[i])) {
-				
 			}
 		}
-		
 	}
 
 	public int getId() {
@@ -113,5 +109,4 @@ public class Clients {
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
-
 }

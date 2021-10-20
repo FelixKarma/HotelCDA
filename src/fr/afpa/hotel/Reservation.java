@@ -187,10 +187,8 @@ public class Reservation {
 		// demander la date
 		for (int j = 0; j < 2; j++) {
 			if (rep.equalsIgnoreCase(repTab[j])) {
-
 				System.out.println("Entrez vos date de reservation ! ");
 				do {
-
 					System.out.println("Date de debut");
 					System.out.print("Jour ? ");
 					String jourDebut = in.next();
@@ -198,9 +196,7 @@ public class Reservation {
 					String moisDebut = in.next();
 					System.out.print("Année ? ");
 					String anneeDebut = in.next();
-
 					debut = "" + anneeDebut + "-" + moisDebut + "-" + jourDebut;
-
 					System.out.println("Date de fin");
 					System.out.print("Jour ? ");
 					String jourFin = in.next();
@@ -208,10 +204,8 @@ public class Reservation {
 					String moisFin = in.next();
 					System.out.print("Année ? ");
 					String anneeFin = in.next();
-
 					fin = "" + anneeFin + "-" + moisFin + "-" + jourFin;
 					days = dateReserve(debut, fin);
-
 					affichageDebutDate = "" + jourDebut + "/" + moisDebut + "/" + anneeDebut;
 					affichageFinDate = "" + jourFin + "/" + moisFin + "/" + anneeFin;
 
@@ -288,9 +282,8 @@ public class Reservation {
 				break;
 			}
 		}
-
 	}
-	
+
 	public void mail() throws AddressException, MessagingException, IOException {
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", true);
@@ -301,7 +294,7 @@ public class Reservation {
 		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("kev.callet@gmail.com", "Fm2xp3W^rs");			
+				return new PasswordAuthentication("kev.callet@gmail.com", "Fm2xp3W^rs");
 			}
 		});
 
@@ -317,11 +310,11 @@ public class Reservation {
 		Multipart multipart = new MimeMultipart();
 		multipart.addBodyPart(messageBodyPart);
 
-//		MimeBodyPart attachmentPart = new MimeBodyPart();
+		MimeBodyPart attachmentPart = new MimeBodyPart();
 
-//		attachmentPart.attachFile(new File("C:\\Users\\dnych\\Desktop\\Capture.PNG"));
+		attachmentPart.attachFile(new File("D:\\DEV\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
 
-//		multipart.addBodyPart(attachmentPart);
+		multipart.addBodyPart(attachmentPart);
 
 		message.setContent(multipart);
 
@@ -334,7 +327,6 @@ public class Reservation {
 		PdfWriter.getInstance(document,
 //				new FileOutputStream("D:\\Cours\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
 				new FileOutputStream("D:\\DEV\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
-			
 
 		Paragraph title = new Paragraph(
 				(new Chunk("HOTEL CDA" + " \n ", FontFactory.getFont(FontFactory.COURIER_BOLD, 20))));
@@ -427,7 +419,6 @@ public class Reservation {
 		} else {
 			System.out.println("Bye !");
 		}
-
 	}
 
 	public void AnnulerReservation() {

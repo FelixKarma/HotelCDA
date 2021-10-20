@@ -1,7 +1,6 @@
 package fr.afpa.hotel;
 
 public class Chambres {
-
 	private int id;
 	private String view;
 	private String superficy;
@@ -36,7 +35,6 @@ public class Chambres {
 
 	public Chambres(int unId, String unType, String uneSuperficy, String unView, String uneOcuppation, int unPrice,
 			int leNbRooms, String desOptions, String unNomClt) {
-
 		id = unId;
 		view = unView;
 		superficy = uneSuperficy;
@@ -100,6 +98,7 @@ public class Chambres {
 		return type;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -119,5 +118,4 @@ public class Chambres {
 	public void setNomClt(String nomClt) {
 		this.nomClt = nomClt;
 	}
-
 }

@@ -1,6 +1,5 @@
 package fr.afpa.hotel;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -19,10 +18,8 @@ public class Main {
 		Reservation reservation = new Reservation();
 
 		boolean stop = false;
-
 		boolean connexionClt = false;
 		boolean connexionEmp = false;
-
 		boolean coClient = false;
 		boolean coEmp = false;
 
@@ -30,7 +27,7 @@ public class Main {
 
 		System.out.println("Etes vous client(1) ou employé(2) ? ");
 		String grade = scanner.next();
-		
+
 		if (grade.equalsIgnoreCase("1")) {
 			coClient = Clients.connexionClt(connexionClt);
 		} else if (grade.equalsIgnoreCase("2")) {
@@ -54,7 +51,6 @@ public class Main {
 				System.out.println("  | " + "J- Chiffre d'affaire");
 				System.out.println("  | " + "Q- Quitter ");
 				System.out.println("  ______________________________________");
-
 				String str = scanner.next().toUpperCase();
 				char rep = str.charAt(0);
 				System.out.println("Votre choix : " + rep);

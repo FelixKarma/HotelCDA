@@ -3,7 +3,6 @@ package fr.afpa.hotel;
 import java.util.Scanner;
 
 public class Employes {
-
 	private String nom;
 	private String prenom;
 	private String numero;
@@ -19,7 +18,6 @@ public class Employes {
 	}
 
 	public static boolean connexionEmp(boolean connexionClient) {
-
 		Scanner in = new Scanner(System.in);
 		String loginEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
 		String mdpEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
@@ -29,7 +27,6 @@ public class Employes {
 		String mdp = in.next();
 
 		for (int i = 0; i < 3; i++) {
-
 			if (login.equals(loginEmp[i]) && mdp.equals(mdpEmp[i])) {
 				connexionClient = true;
 				break;
@@ -39,7 +36,6 @@ public class Employes {
 			}
 		}
 		return connexionClient;
-
 	}
 
 	public String getNom() {
@@ -81,5 +77,4 @@ public class Employes {
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
-
 }
