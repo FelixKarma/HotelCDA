@@ -1,10 +1,13 @@
 package fr.afpa.hotel;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import com.itextpdf.text.DocumentException;
 
 public class Main {
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws FileNotFoundException, DocumentException {
 
 		Scanner scanner = new Scanner(System.in);
 		Hotel hotel = new Hotel();
@@ -76,7 +79,6 @@ public class Main {
 			case 'J':
 				hotel.pricePerDate();
 				break;
-
 			case 'Q':
 				System.out.println("Bye !");
 				stop = true;

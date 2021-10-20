@@ -29,7 +29,7 @@ public class Clients {
 	String prenomClient[] = { "Kevin", "Billy", "Karma" };
 	String numeroClient[] = { "0616186124", "0615482659", "0623147859" };
 	String mailClient[] = { "j.dupont@gmail.com", "b.thecat@gmail.com", "k.shoto@gmail.com" };
-	String cbClient[] = { "0000000000000000", "1111111111111111", "2222222222222222" };
+	String cbClient[] = { "0", "1", "2" };
 
 	public static boolean connexionClt(boolean connexionClient) {
 		String loginClient[] = { "0", "1234567890", "2345678901" };

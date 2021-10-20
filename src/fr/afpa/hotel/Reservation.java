@@ -1,9 +1,19 @@
 package fr.afpa.hotel;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
+
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class Reservation {
 
@@ -11,8 +21,17 @@ public class Reservation {
 
 	Chambres chambre = new Chambres(id, null, null, null, null, id, id, null, null);
 	Clients client = new Clients();
+	float argent = 0;
+	float days = 0;
+	String lastNameClt = "";
+	String firstNameClt = "";
+	String affichageViewT;
+	String affichageTypeT;
+	String affichageDebutDate;
+	String affichageFinDate;
+	String affichageOptionsT;
 
-	public void reserver() {
+	public void reserver() throws FileNotFoundException, DocumentException {
 
 		boolean stop = false;
 		Scanner in = new Scanner(System.in);
@@ -145,44 +164,61 @@ public class Reservation {
 		String rep = in.next();
 		float days = 0;
 		String fin;
+		String debut;
 		boolean nomCorrect = false;
 
 		// demander la date
 		for (int j = 0; j < 2; j++) {
 			if (rep.equalsIgnoreCase(repTab[j])) {
 
-				System.out.println("Jusqu'à quand ? ");
+				System.out.println("Entrez vos date de reservation ! ");
 				do {
-					System.out.print("Année ? ");
-					String annee = in.next();
-					System.out.print("Mois ? ");
-					String mois = in.next();
-					System.out.print("Jour ? ");
-					String jour = in.next();
 
-					fin = "" + annee + "-" + mois + "-" + jour;
-					days = dateReserve(fin);
+					System.out.println("Date de debut");
+					System.out.print("Jour ? ");
+					String jourDebut = in.next();
+					System.out.print("Mois ? ");
+					String moisDebut = in.next();
+					System.out.print("Année ? ");
+					String anneeDebut = in.next();
+
+					debut = "" + anneeDebut + "-" + moisDebut + "-" + jourDebut;
+
+					System.out.println("Date de fin");
+					System.out.print("Jour ? ");
+					String jourFin = in.next();
+					System.out.print("Mois ? ");
+					String moisFin = in.next();
+					System.out.print("Année ? ");
+					String anneeFin = in.next();
+
+					fin = "" + anneeFin + "-" + moisFin + "-" + jourFin;
+					days = dateReserve(debut, fin);
+
+					affichageDebutDate = "" + jourDebut + "/" + moisDebut + "/" + anneeDebut;
+					affichageFinDate = "" + jourFin + "/" + moisFin + "/" + anneeFin;
+
 					if (days > 30) {
 						System.out.println("Vous ne pouvez réserver la chambre qu'un seul mois");
 					}
 				} while (days > 30);
 
-				// demande d'argent
 				System.out.print("Entrez votre nom : ");
 				String name = in.next();
 				for (int i = 0; i < 3; i++) {
 					if (name.equalsIgnoreCase(client.nomClient[i])) {
 						System.out.println("Chambre validée !");
+						lastNameClt = client.nomClient[i];
+						firstNameClt = client.prenomClient[i];
 						nomCorrect = true;
 						break;
 					}
 					if (i == 2 && !name.equalsIgnoreCase(client.nomClient[i])) {
 						System.out.println("Nom incorrect");
-
 					}
 				}
 				if (nomCorrect) {
-					float argent = (days + 1) * chambre.priceT[roomForPrice];					
+					argent = (days + 1) * chambre.priceT[roomForPrice];
 					System.out.println("Le prix de votre réservation est de : " + argent + " euroTTC");
 					System.out.print("Veuillez entrez votre numero de carte : ");
 					String carte = in.next();
@@ -191,29 +227,31 @@ public class Reservation {
 						if (carte.equals(client.cbClient[i])) {
 							System.out.println("  __" + "\n");
 							System.out.println(" | " + "Payement validé !");
-							System.out.println(" | " +"Chambre réservée !");
+							System.out.println(" | " + "Chambre réservée !");
 							System.out.println("  __");
-							
-							
 
 							for (int k = 0; k < Hotel.dispo.length; k++) {
 								if (Hotel.dispo[k] == true) {
 									Hotel.dispo[k] = false;
+									LocalDate dateDebut = LocalDate.parse(debut);
 									LocalDate dateFin = LocalDate.parse(fin);
-									Hotel.StartDate[k] = LocalDate.now();
+									Hotel.StartDate[k] = dateDebut;
 									Hotel.EndDate[k] = dateFin;
 									Hotel.rooms[k] = new Chambres(k, chambre.typeT[roomForPrice],
 											chambre.superficyT[roomForPrice], chambre.viewT[roomForPrice],
 											chambre.occupationT[roomForPrice], chambre.priceT[roomForPrice],
 											chambre.nbRoomsT[roomForPrice], chambre.optionsT[roomForPrice],
 											client.nomClient[i]);
+									affichageTypeT = chambre.typeT[roomForPrice];
+									affichageViewT = chambre.viewT[roomForPrice];
+									affichageOptionsT = chambre.optionsT[roomForPrice];
 									System.out.println("  __" + "\n");
-									System.out.println(" | " + "Votre chambre sera la numéro " + k); // debute à 0
+									System.out.println(" | " + "Votre chambre sera la numéro " + (k+1) + " ! "); // debute à 0
 									System.out.println("  __");
 									break;
 								}
 							}
-
+							pdf();
 							break;
 						}
 						if (i == client.cbClient.length - 1 && !carte.equals(client.cbClient[i])) {
@@ -224,13 +262,63 @@ public class Reservation {
 						}
 					}
 				}
-
 				break;
 			} else {
 				System.out.println("Chambre annulée !");
 				break;
 			}
 		}
+
+	}
+
+	public void pdf() throws FileNotFoundException, DocumentException {
+
+		Document document = new Document();
+		PdfWriter.getInstance(document,
+				new FileOutputStream("D:\\Cours\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
+
+		Paragraph title = new Paragraph(
+				(new Chunk("HOTEL CDA" + " \n ", FontFactory.getFont(FontFactory.COURIER_BOLD, 20))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		Paragraph recapNp = new Paragraph((new Chunk("Nom Prenom : " + lastNameClt + " " + firstNameClt,
+				FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		Paragraph recapChambre = new Paragraph(
+				(new Chunk("Type : " + affichageTypeT, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		Paragraph recapChambre2 = new Paragraph(
+				(new Chunk("Vue : " + affichageViewT, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		Paragraph recapOptions = new Paragraph(
+				(new Chunk("Option : " + affichageOptionsT, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		Paragraph recapPrix = new Paragraph(
+				(new Chunk("Prix : " + argent + "EuroTTC", FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		Paragraph recapDateDebut = new Paragraph
+				((new Chunk("Date de debut : " + affichageDebutDate, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		Paragraph recapDateFin = new Paragraph(
+				(new Chunk("Date de fin : " + affichageFinDate, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+		document.open();
+		document.add(title);
+		document.add(recapNp);
+		document.add(recapChambre);
+		document.add(recapChambre2);
+		document.add(recapOptions);
+		document.add(recapDateDebut);
+		document.add(recapDateFin);
+		document.add(recapPrix);
+		document.close();
 	}
 
 	public void liberer() {
@@ -270,11 +358,11 @@ public class Reservation {
 		}
 	}
 
-	public static float dateReserve(String fin) {
+	public static float dateReserve(String debut, String fin) {
 		float res = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Date dateAvant = new Date();
+			Date dateAvant = sdf.parse(debut);
 			Date dateApres = sdf.parse(fin);
 			long diff = dateApres.getTime() - dateAvant.getTime();
 			res = (diff / (1000 * 60 * 60 * 24));
