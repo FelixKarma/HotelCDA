@@ -22,17 +22,17 @@ public class Employes {
 		String loginEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
 		String mdpEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
 		System.out.print("Votre login: ");
-		String login = in.next();
+		String login = in.next().toUpperCase();
 		System.out.print("Votre mdp: ");
-		String mdp = in.next();
+		String mdp = in.next().toUpperCase();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (login.equals(loginEmp[i]) && mdp.equals(mdpEmp[i])) {
 				connexionClient = true;
 				break;
 			}
 			if (i == 2 && (!login.equals(loginEmp[i]) || !mdp.equals(mdpEmp[i]))) {
-				System.out.println("login ou mdp faux");
+				System.out.println("Login ou mot de passe erronnée");
 			}
 		}
 		return connexionClient;

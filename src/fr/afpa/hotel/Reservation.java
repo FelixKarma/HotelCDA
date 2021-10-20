@@ -52,6 +52,7 @@ public class Reservation {
 	public void reserver() throws DocumentException, AddressException, MessagingException, IOException {
 
 		boolean stop = false;
+		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		Hotel.freeRooms();
 		int rl = 0;
@@ -83,8 +84,7 @@ public class Reservation {
 				System.out.println(" | " + "Vur sur : " + chambre.viewT[0]);
 				System.out.println(" | " + "Prix : " + chambre.optionsT[0]);
 				System.out.println(" | " + "Prix : " + chambre.priceT[0] + " €");
-				System.out.println(" | " + "Disponible : " + rlt0); // ajouter une soustraction des chambres deja
-				// reserver
+				System.out.println(" | " + "Disponible : " + rlt0);
 				System.out.println("  __");
 				roomForPrice = 0;
 				break;
@@ -94,14 +94,13 @@ public class Reservation {
 						rl++;
 					}
 				}
-				int rlt1 = chambre.nbRoomsT[1] + 1 - rl; // a revoir
+				int rlt1 = chambre.nbRoomsT[1] + 1 - rl;
 				System.out.println("  __" + "\n");
 				System.out.println(chambre.typeT[1] + " - " + chambre.superficyT[1]);
 				System.out.println("Vur sur : " + chambre.viewT[1]);
 				System.out.println("Prix : " + chambre.optionsT[1]);
 				System.out.println("Prix : " + chambre.priceT[1] + " €");
-				System.out.println("Disponible : " + rlt1); // ajouter une soustraction des chambres deja
-															// reserver
+				System.out.println("Disponible : " + rlt1);
 				System.out.println("  __");
 				roomForPrice = 1;
 				break;
@@ -111,8 +110,7 @@ public class Reservation {
 				System.out.println("Vur sur : " + chambre.viewT[2]);
 				System.out.println("Prix : " + chambre.optionsT[2]);
 				System.out.println("Prix : " + chambre.priceT[2] + " €");
-				System.out.println("Disponible : " + chambre.nbRoomsT[2]); // ajouter une soustraction des chambres deja
-				// reserver
+				System.out.println("Disponible : " + chambre.nbRoomsT[2]);
 				System.out.println("  __");
 				roomForPrice = 2;
 				break;
@@ -122,8 +120,7 @@ public class Reservation {
 				System.out.println("Vur sur : " + chambre.viewT[3]);
 				System.out.println("Prix : " + chambre.optionsT[3]);
 				System.out.println("Prix : " + chambre.priceT[3] + " €");
-				System.out.println("Disponible : " + chambre.nbRoomsT[3]); // ajouter une soustraction des chambres deja
-				// reserver
+				System.out.println("Disponible : " + chambre.nbRoomsT[3]);
 				System.out.println("  __");
 				roomForPrice = 3;
 			case 'E':
@@ -132,10 +129,9 @@ public class Reservation {
 				System.out.println("Vur sur : " + chambre.viewT[4]);
 				System.out.println("Prix : " + chambre.optionsT[4]);
 				System.out.println("Prix : " + chambre.priceT[4] + " €");
-				System.out.println("Disponible : " + chambre.nbRoomsT[4]); // ajouter une soustraction des chambres deja
-				// reserver
+				System.out.println("Disponible : " + chambre.nbRoomsT[4]);
 				System.out.println("  __");
-				roomForPrice = 2;
+				roomForPrice = 4;
 				break;
 			case 'F':
 				System.out.println("  __" + "\n");
@@ -143,10 +139,9 @@ public class Reservation {
 				System.out.println("Vur sur : " + chambre.viewT[5]);
 				System.out.println("Prix : " + chambre.optionsT[5]);
 				System.out.println("Prix : " + chambre.priceT[5] + " €");
-				System.out.println("Disponible : " + chambre.nbRoomsT[5]); // ajouter une soustraction des chambres deja
-				// reserver
+				System.out.println("Disponible : " + chambre.nbRoomsT[5]);
 				System.out.println("  __");
-				roomForPrice = 2;
+				roomForPrice = 5;
 				break;
 			case 'G':
 				System.out.println("  __" + "\n");
@@ -154,10 +149,9 @@ public class Reservation {
 				System.out.println("Vur sur : " + chambre.viewT[6]);
 				System.out.println("Prix : " + chambre.optionsT[6]);
 				System.out.println("Prix : " + chambre.priceT[6] + " €");
-				System.out.println("Disponible : " + chambre.nbRoomsT[6]); // ajouter une soustraction des chambres deja
-				// reserver
+				System.out.println("Disponible : " + chambre.nbRoomsT[6]);
 				System.out.println("  __");
-				roomForPrice = 2;
+				roomForPrice = 6;
 				break;
 			case 'H':
 				System.out.println("  __" + "\n");
@@ -165,10 +159,9 @@ public class Reservation {
 				System.out.println("Vur sur : " + chambre.viewT[7]);
 				System.out.println("Prix : " + chambre.optionsT[7]);
 				System.out.println("Prix : " + chambre.priceT[7] + " €");
-				System.out.println("Disponible : " + chambre.nbRoomsT[7]); // ajouter une soustraction des chambres deja
-				// reserver
+				System.out.println("Disponible : " + chambre.nbRoomsT[7]);
 				System.out.println("  __");
-				roomForPrice = 2;
+				roomForPrice = 7;
 				break;
 			default:
 				break;
@@ -184,7 +177,6 @@ public class Reservation {
 
 		boolean nomCorrect = false;
 
-		// demander la date
 		for (int j = 0; j < 2; j++) {
 			if (rep.equalsIgnoreCase(repTab[j])) {
 				System.out.println("Entrez vos date de reservation ! ");
@@ -257,15 +249,13 @@ public class Reservation {
 									affichageViewT = chambre.viewT[roomForPrice];
 									affichageOptionsT = chambre.optionsT[roomForPrice];
 									System.out.println("  __" + "\n");
-									System.out.println(" | " + "Votre chambre sera la numéro " + (k + 1) + " ! "); // debute
-																													// à
-																													// 0
+									System.out.println(" | " + "Votre chambre sera la numéro " + (k + 1) + " ! ");
 									System.out.println("  __");
 									break;
 								}
 							}
-							pdf();
-							mail();
+							pdf(); 							
+							mail();						
 							break;
 						}
 						if (i == client.cbClient.length - 1 && !carte.equals(client.cbClient[i])) {
@@ -294,7 +284,7 @@ public class Reservation {
 		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("kev.callet@gmail.com", "Fm2xp3W^rs");
+				return new PasswordAuthentication("kev.callet@gmail.com", "ENTRER MOT DE PASSE EMAIL"); //ENTRER MOT DE PASSE EMAIL
 			}
 		});
 
@@ -311,11 +301,8 @@ public class Reservation {
 		multipart.addBodyPart(messageBodyPart);
 
 		MimeBodyPart attachmentPart = new MimeBodyPart();
-
 		attachmentPart.attachFile(new File("D:\\DEV\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
-
 		multipart.addBodyPart(attachmentPart);
-
 		message.setContent(multipart);
 
 		Transport.send(message);
@@ -325,8 +312,7 @@ public class Reservation {
 
 		Document document = new Document();
 		PdfWriter.getInstance(document,
-//				new FileOutputStream("D:\\Cours\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
-				new FileOutputStream("D:\\DEV\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
+				new FileOutputStream("D:\\DEV\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf")); 
 
 		Paragraph title = new Paragraph(
 				(new Chunk("HOTEL CDA" + " \n ", FontFactory.getFont(FontFactory.COURIER_BOLD, 20))));
@@ -374,7 +360,7 @@ public class Reservation {
 
 	public void modifierReservation() {
 
-		System.out.println("Voulez-vous annuler une chambre ? (oui ou non)");
+		System.out.println("Voulez-vous modifier une chambre ? (oui ou non)");
 		String repoUInO = in.next();
 
 		if (repoUInO.equalsIgnoreCase("oui")) {
@@ -422,12 +408,10 @@ public class Reservation {
 	}
 
 	public void AnnulerReservation() {
-
 		System.out.println("Voulez-vous annuler une chambre ? (oui ou non)");
 		String repoUInO = in.next();
 
 		if (repoUInO.equalsIgnoreCase("oui")) {
-
 			System.out.println("Entrez votre numero de chambre : ");
 			int repNbChambre = in.nextInt();
 
