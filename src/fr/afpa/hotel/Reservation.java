@@ -64,7 +64,7 @@ public class Reservation {
 				System.out.println(" | " + chambre.typeT[0] + " - " + chambre.superficyT[0]);
 				System.out.println(" | " + "Vur sur : " + chambre.viewT[0]);
 				System.out.println(" | " + "Prix : " + chambre.optionsT[0]);
-				System.out.println(" | " + "Prix : " + chambre.priceT[0] + " euroTTC");
+				System.out.println(" | " + "Prix : " + chambre.priceT[0] + " €");
 				System.out.println(" | " + "Disponible : " + rlt0); // ajouter une soustraction des chambres deja
 				// reserver
 				System.out.println("  __");
@@ -81,7 +81,7 @@ public class Reservation {
 				System.out.println(chambre.typeT[1] + " - " + chambre.superficyT[1]);
 				System.out.println("Vur sur : " + chambre.viewT[1]);
 				System.out.println("Prix : " + chambre.optionsT[1]);
-				System.out.println("Prix : " + chambre.priceT[1] + " euroTTC");
+				System.out.println("Prix : " + chambre.priceT[1] + " €");
 				System.out.println("Disponible : " + rlt1); // ajouter une soustraction des chambres deja
 															// reserver
 				System.out.println("  __");
@@ -92,7 +92,7 @@ public class Reservation {
 				System.out.println(chambre.typeT[2] + " - " + chambre.superficyT[2]);
 				System.out.println("Vur sur : " + chambre.viewT[2]);
 				System.out.println("Prix : " + chambre.optionsT[2]);
-				System.out.println("Prix : " + chambre.priceT[2] + " euroTTC");
+				System.out.println("Prix : " + chambre.priceT[2] + " €");
 				System.out.println("Disponible : " + chambre.nbRoomsT[2]); // ajouter une soustraction des chambres deja
 				// reserver
 				System.out.println("  __");
@@ -103,7 +103,7 @@ public class Reservation {
 				System.out.println(chambre.typeT[3] + " - " + chambre.superficyT[3]);
 				System.out.println("Vur sur : " + chambre.viewT[3]);
 				System.out.println("Prix : " + chambre.optionsT[3]);
-				System.out.println("Prix : " + chambre.priceT[3] + " euroTTC");
+				System.out.println("Prix : " + chambre.priceT[3] + " €");
 				System.out.println("Disponible : " + chambre.nbRoomsT[3]); // ajouter une soustraction des chambres deja
 				// reserver
 				System.out.println("  __");
@@ -113,7 +113,7 @@ public class Reservation {
 				System.out.println(chambre.typeT[2] + " - " + chambre.superficyT[4]);
 				System.out.println("Vur sur : " + chambre.viewT[4]);
 				System.out.println("Prix : " + chambre.optionsT[4]);
-				System.out.println("Prix : " + chambre.priceT[4] + " euroTTC");
+				System.out.println("Prix : " + chambre.priceT[4] + " €");
 				System.out.println("Disponible : " + chambre.nbRoomsT[4]); // ajouter une soustraction des chambres deja
 				// reserver
 				System.out.println("  __");
@@ -124,7 +124,7 @@ public class Reservation {
 				System.out.println(chambre.typeT[5] + " - " + chambre.superficyT[5]);
 				System.out.println("Vur sur : " + chambre.viewT[5]);
 				System.out.println("Prix : " + chambre.optionsT[5]);
-				System.out.println("Prix : " + chambre.priceT[5] + " euroTTC");
+				System.out.println("Prix : " + chambre.priceT[5] + " €");
 				System.out.println("Disponible : " + chambre.nbRoomsT[5]); // ajouter une soustraction des chambres deja
 				// reserver
 				System.out.println("  __");
@@ -135,7 +135,7 @@ public class Reservation {
 				System.out.println(chambre.typeT[6] + " - " + chambre.superficyT[6]);
 				System.out.println("Vur sur : " + chambre.viewT[6]);
 				System.out.println("Prix : " + chambre.optionsT[6]);
-				System.out.println("Prix : " + chambre.priceT[6] + " euroTTC");
+				System.out.println("Prix : " + chambre.priceT[6] + " €");
 				System.out.println("Disponible : " + chambre.nbRoomsT[6]); // ajouter une soustraction des chambres deja
 				// reserver
 				System.out.println("  __");
@@ -146,7 +146,7 @@ public class Reservation {
 				System.out.println(chambre.typeT[7] + " - " + chambre.superficyT[7]);
 				System.out.println("Vur sur : " + chambre.viewT[7]);
 				System.out.println("Prix : " + chambre.optionsT[7]);
-				System.out.println("Prix : " + chambre.priceT[7] + " euroTTC");
+				System.out.println("Prix : " + chambre.priceT[7] + " €");
 				System.out.println("Disponible : " + chambre.nbRoomsT[7]); // ajouter une soustraction des chambres deja
 				// reserver
 				System.out.println("  __");
@@ -219,7 +219,7 @@ public class Reservation {
 				}
 				if (nomCorrect) {
 					argent = (days + 1) * chambre.priceT[roomForPrice];
-					System.out.println("Le prix de votre réservation est de : " + argent + " euroTTC");
+					System.out.println("Le prix de votre réservation est de : " + argent + " €");
 					System.out.print("Veuillez entrez votre numero de carte : ");
 					String carte = in.next();
 
@@ -327,22 +327,23 @@ public class Reservation {
 		String liberty = in.next();
 		boolean clientFlag = false;
 		boolean roomFlag = false;
+		String nomClient = null;
 
-		if (liberty.equalsIgnoreCase("Oui")) {
-			System.out.println("Entrez votre nom : ");
-			String reponse = in.next();
-
-			for (int i = 0; i < client.nomClient.length; i++) {
-				if (reponse.equalsIgnoreCase(client.nomClient[i])) {
-					clientFlag = true;
-				}
-			}
-
+		if (liberty.equalsIgnoreCase("Oui")) {		
 			System.out.println("Entrez votre numero de chambre : ");
 			int repNbChambre = in.nextInt();
 			for (int i = 0; i < Hotel.rooms.length; i++) {
 				if (repNbChambre - 1 == (Hotel.rooms[i].getId())) {
 					roomFlag = true;
+					nomClient=Hotel.rooms[i].getNomClt();
+				}
+			}
+			
+			System.out.println("Entrez votre nom : ");
+			String reponse = in.next();		
+			for (int i = 0; i < client.nomClient.length; i++) {
+				if (reponse.equalsIgnoreCase(nomClient)) {
+					clientFlag = true;
 				}
 			}
 

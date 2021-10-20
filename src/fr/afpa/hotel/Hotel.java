@@ -69,7 +69,6 @@ public class Hotel {
 				rooms[temp] = new Chambres(temp, typeT[i], superficyT[i], viewT[i], occupationT[i], priceT[i],
 						nbRoomsT[i], optionsT[i], client.nomClient[idClient]);
 				temp++;
-
 			}
 		}
 	}
@@ -95,7 +94,7 @@ public class Hotel {
 					System.out.println(" | " + "Chambre " + numberRoom + " : " + reserverTr);
 					System.out.println(" | " + "Type : " + typeT[i]);
 					System.out.println(" | " + "Type d'occupant : " + occupationT[i]);
-					System.out.println(" | " + "Nom occupant " + rooms[temp].getNomClt());
+					System.out.println(" | " + "Nom occupant : " + rooms[temp].getNomClt());
 					System.out.println(" | Du : " + StartDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 					System.out.println(" | Au : " + EndDate[temp].format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 					System.out.println("  __");
