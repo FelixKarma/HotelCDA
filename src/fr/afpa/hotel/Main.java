@@ -73,8 +73,10 @@ public class Main {
 				reservation.liberer();
 				break;
 			case 'H':
+				reservation.modifierReservation();
 				break;
 			case 'I':
+				reservation.AnnulerReservation();
 				break;
 			case 'J':
 				hotel.pricePerDate();

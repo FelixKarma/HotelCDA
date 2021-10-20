@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -18,7 +17,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class Reservation {
 
 	int id;
-
+	Scanner in = new Scanner(System.in);
 	Chambres chambre = new Chambres(id, null, null, null, null, id, id, null, null);
 	Clients client = new Clients();
 	float argent = 0;
@@ -30,6 +29,8 @@ public class Reservation {
 	String affichageDebutDate;
 	String affichageFinDate;
 	String affichageOptionsT;
+	String fin;
+	String debut;
 
 	public void reserver() throws FileNotFoundException, DocumentException {
 
@@ -163,8 +164,7 @@ public class Reservation {
 		System.out.println("  __");
 		String rep = in.next();
 		float days = 0;
-		String fin;
-		String debut;
+
 		boolean nomCorrect = false;
 
 		// demander la date
@@ -246,7 +246,9 @@ public class Reservation {
 									affichageViewT = chambre.viewT[roomForPrice];
 									affichageOptionsT = chambre.optionsT[roomForPrice];
 									System.out.println("  __" + "\n");
-									System.out.println(" | " + "Votre chambre sera la numéro " + (k+1) + " ! "); // debute à 0
+									System.out.println(" | " + "Votre chambre sera la numéro " + (k + 1) + " ! "); // debute
+																													// à
+																													// 0
 									System.out.println("  __");
 									break;
 								}
@@ -285,24 +287,24 @@ public class Reservation {
 				FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
 		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 
-		Paragraph recapChambre = new Paragraph(
+		Paragraph recapType = new Paragraph(
 				(new Chunk("Type : " + affichageTypeT, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
 		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 
-		Paragraph recapChambre2 = new Paragraph(
+		Paragraph recapView = new Paragraph(
 				(new Chunk("Vue : " + affichageViewT, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
 		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 
 		Paragraph recapOptions = new Paragraph(
-				(new Chunk("Option : " + affichageOptionsT, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+				(new Chunk("Options : " + affichageOptionsT, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
 		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 
 		Paragraph recapPrix = new Paragraph(
-				(new Chunk("Prix : " + argent + "EuroTTC", FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+				(new Chunk("Prix : " + argent + " €", FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
 		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 
-		Paragraph recapDateDebut = new Paragraph
-				((new Chunk("Date de debut : " + affichageDebutDate, FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
+		Paragraph recapDateDebut = new Paragraph((new Chunk("Date de debut : " + affichageDebutDate,
+				FontFactory.getFont(FontFactory.COURIER_BOLD, 15))));
 		title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 
 		Paragraph recapDateFin = new Paragraph(
@@ -312,13 +314,89 @@ public class Reservation {
 		document.open();
 		document.add(title);
 		document.add(recapNp);
-		document.add(recapChambre);
-		document.add(recapChambre2);
+		document.add(recapView);
+		document.add(recapOptions);
 		document.add(recapOptions);
 		document.add(recapDateDebut);
 		document.add(recapDateFin);
 		document.add(recapPrix);
 		document.close();
+	}
+
+	public void modifierReservation() {
+
+		System.out.println("Voulez-vous annuler une chambre ? (oui ou non)");
+		String repoUInO = in.next();
+
+		if (repoUInO.equalsIgnoreCase("oui")) {
+			System.out.println("Entrez votre numero de chambre : ");
+			int repNbChambre = in.nextInt();
+
+			if (Hotel.dispo[repNbChambre - 1] == false) {
+				do {
+					System.out.println("Date de debut");
+					System.out.print("Jour ? ");
+					String jourDebut = in.next();
+					System.out.print("Mois ? ");
+					String moisDebut = in.next();
+					System.out.print("Année ? ");
+					String anneeDebut = in.next();
+					debut = "" + anneeDebut + "-" + moisDebut + "-" + jourDebut;
+					System.out.println("Date de fin");
+					System.out.print("Jour ? ");
+					String jourFin = in.next();
+					System.out.print("Mois ? ");
+					String moisFin = in.next();
+					System.out.print("Année ? ");
+					String anneeFin = in.next();
+					fin = "" + anneeFin + "-" + moisFin + "-" + jourFin;
+					days = dateReserve(debut, fin);
+
+					if (days > 30) {
+						System.out.println("Vous ne pouvez réserver la chambre qu'un seul mois");
+					}
+				} while (days > 30);
+
+				LocalDate dateDebut = LocalDate.parse(debut);
+				LocalDate dateFin = LocalDate.parse(fin);
+				Hotel.StartDate[repNbChambre - 1] = dateDebut;
+				Hotel.EndDate[repNbChambre - 1] = dateFin;
+
+				System.out.println("Chambre " + repNbChambre + " modifier !");
+			} else {
+				System.out.println("La chambre est déjà libre !");
+			}
+
+		} else {
+			System.out.println("Bye !");
+		}
+
+	}
+
+	public void AnnulerReservation() {
+
+		System.out.println("Voulez-vous annuler une chambre ? (oui ou non)");
+		String repoUInO = in.next();
+
+		if (repoUInO.equalsIgnoreCase("oui")) {
+
+			System.out.println("Entrez votre numero de chambre : ");
+			int repNbChambre = in.nextInt();
+
+			if (Hotel.dispo[repNbChambre - 1] == false) {
+				for (int i = 0; i < Hotel.rooms.length; i++) {
+					if (i == repNbChambre - 1) {
+						Hotel.dispo[i] = true;
+						Hotel.rooms[i] = new Chambres(id, null, null, null, null, id, id, null, null);
+						System.out.println("Chambre libérée. A bientot !");
+					}
+				}
+			} else {
+				System.out.println("La chambre est déjà libre !");
+			}
+		} else {
+			System.out.println("Bye !");
+		}
 	}
 
 	public void liberer() {
@@ -329,18 +407,18 @@ public class Reservation {
 		boolean roomFlag = false;
 		String nomClient = null;
 
-		if (liberty.equalsIgnoreCase("Oui")) {		
+		if (liberty.equalsIgnoreCase("Oui")) {
 			System.out.println("Entrez votre numero de chambre : ");
 			int repNbChambre = in.nextInt();
 			for (int i = 0; i < Hotel.rooms.length; i++) {
 				if (repNbChambre - 1 == (Hotel.rooms[i].getId())) {
 					roomFlag = true;
-					nomClient=Hotel.rooms[i].getNomClt();
+					nomClient = Hotel.rooms[i].getNomClt();
 				}
 			}
-			
+
 			System.out.println("Entrez votre nom : ");
-			String reponse = in.next();		
+			String reponse = in.next();
 			for (int i = 0; i < client.nomClient.length; i++) {
 				if (reponse.equalsIgnoreCase(nomClient)) {
 					clientFlag = true;
