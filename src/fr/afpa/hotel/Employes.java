@@ -18,13 +18,9 @@ public class Employes {
 		mdp = unMdp;
 	}
 
-	String nomEmp[] = { "0", "0", "0" };
-	String preEmp[] = { "0", "0", "0" };
-	String numEmp[] = { "0", "0", "0" };
-
 	public static boolean connexionEmp(boolean connexionClient) {
-		String loginEmp[] = { "0", "1234567890", "2345678901" };
-		String mdpEmp[] = { "0", "billou", "karmater" };
+		String loginEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005"};
+		String mdpEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
 		Scanner in = new Scanner(System.in);
 		System.out.print("Votre login: ");
 		String login = in.next();
