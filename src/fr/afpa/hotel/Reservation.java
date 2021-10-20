@@ -395,7 +395,7 @@ public class Reservation {
 				System.out.println("La chambre est déjà libre !");
 			}
 		} else {
-			System.out.println("Bye !");
+			System.out.println("Bye !0");
 		}
 	}
 

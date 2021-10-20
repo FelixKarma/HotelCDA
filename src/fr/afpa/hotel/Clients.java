@@ -12,29 +12,18 @@ public class Clients {
 	private String mail;
 	private String login;
 	private String mdp;
-
-//public Clients(int unId, String unNom, String unPrenom, String unNumero, String unMail, String unLogin, String unMdp) {
-//		
-//		id=unId;
-//		nom=unNom;
-//		prenom=unPrenom;
-//		numero=unNumero;
-//		mail=unMail;
-//		login=unLogin;
-//		mdp=unMdp;
-//		
-//	}
-
+	static Scanner in = new Scanner(System.in);
+	
 	String nomClient[] = { "Callet", "TheCat", "Shoto" };
 	String prenomClient[] = { "Kevin", "Billy", "Karma" };
 	String numeroClient[] = { "0616186124", "0615482659", "0623147859" };
 	String mailClient[] = { "j.dupont@gmail.com", "b.thecat@gmail.com", "k.shoto@gmail.com" };
-	String cbClient[] = { "0", "1", "2" };
+	String cbClient[] = { "0000000000000000", "0000000000000000", "0000000000000000" };
+	static String loginClient[] = { "0123456789", "1234567890", "2345678901" };
+	static String mdpClient[] = { "0123456789", "1234567890", "2345678901" };
 
 	public static boolean connexionClt(boolean connexionClient) {
-		String loginClient[] = { "0", "1234567890", "2345678901" };
-		String mdpClient[] = { "0", "billou", "karmater" };
-		Scanner in = new Scanner(System.in);
+			
 		System.out.print("Entrez votre login : ");
 		String login = in.next();
 		System.out.print("Entrez votre mot de passe : ");
@@ -49,6 +38,16 @@ public class Clients {
 			}
 		}
 		return connexionClient;
+	}
+	
+	public void affichageReservation() {
+		
+		for (int i = 0; i < 3; i++) {
+			if (login.equals(loginClient[i]) && mdp.equals(mdpClient[i])) {
+				
+			}
+		}
+		
 	}
 
 	public int getId() {
