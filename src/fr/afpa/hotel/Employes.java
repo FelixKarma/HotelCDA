@@ -19,14 +19,17 @@ public class Employes {
 	}
 
 	public static boolean connexionEmp(boolean connexionClient) {
-		String loginEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005"};
-		String mdpEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
+
 		Scanner in = new Scanner(System.in);
+		String loginEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
+		String mdpEmp[] = { "GH001", "GH002", "GH003", "GH004", "GH005" };
 		System.out.print("Votre login: ");
 		String login = in.next();
 		System.out.print("Votre mdp: ");
 		String mdp = in.next();
+
 		for (int i = 0; i < 3; i++) {
+
 			if (login.equals(loginEmp[i]) && mdp.equals(mdpEmp[i])) {
 				connexionClient = true;
 				break;

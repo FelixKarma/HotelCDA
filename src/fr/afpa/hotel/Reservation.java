@@ -1,11 +1,28 @@
 package fr.afpa.hotel;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Scanner;
+
+import javax.mail.Address;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -32,7 +49,7 @@ public class Reservation {
 	String fin;
 	String debut;
 
-	public void reserver() throws FileNotFoundException, DocumentException {
+	public void reserver() throws DocumentException, AddressException, MessagingException, IOException {
 
 		boolean stop = false;
 		Scanner in = new Scanner(System.in);
@@ -254,6 +271,7 @@ public class Reservation {
 								}
 							}
 							pdf();
+							mail();
 							break;
 						}
 						if (i == client.cbClient.length - 1 && !carte.equals(client.cbClient[i])) {
@@ -272,12 +290,51 @@ public class Reservation {
 		}
 
 	}
+	
+	public void mail() throws AddressException, MessagingException, IOException {
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", true);
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", 587);
+		properties.put("mail.smtp.starttls.enable", true);
+		properties.put("mail.transport.protocol", "smtp");
+		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("kev.callet@gmail.com", "Fm2xp3W^rs");			
+			}
+		});
+
+		Message message = new MimeMessage(session);
+		Address addressTo = new InternetAddress("kev.callet@gmail.com");
+		message.setRecipient(Message.RecipientType.TO, addressTo);
+		message.setSubject("HotelCDA - Chambre réservée");
+
+		BodyPart messageBodyPart = new MimeBodyPart();
+		messageBodyPart.setText("Bonjour,\n\n"
+				+ "Veuillez retrouver votre résumé de votre chambre réservée chez nous.\n\n" + "Cordialement");
+
+		Multipart multipart = new MimeMultipart();
+		multipart.addBodyPart(messageBodyPart);
+
+//		MimeBodyPart attachmentPart = new MimeBodyPart();
+
+//		attachmentPart.attachFile(new File("C:\\Users\\dnych\\Desktop\\Capture.PNG"));
+
+//		multipart.addBodyPart(attachmentPart);
+
+		message.setContent(multipart);
+
+		Transport.send(message);
+	}
 
 	public void pdf() throws FileNotFoundException, DocumentException {
 
 		Document document = new Document();
 		PdfWriter.getInstance(document,
-				new FileOutputStream("D:\\Cours\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
+//				new FileOutputStream("D:\\Cours\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
+				new FileOutputStream("D:\\DEV\\Java\\Projets Eclipse\\HotelCDA\\facture.pdf"));
+			
 
 		Paragraph title = new Paragraph(
 				(new Chunk("HOTEL CDA" + " \n ", FontFactory.getFont(FontFactory.COURIER_BOLD, 20))));
@@ -395,7 +452,7 @@ public class Reservation {
 				System.out.println("La chambre est déjà libre !");
 			}
 		} else {
-			System.out.println("Bye !0");
+			System.out.println("Bye !");
 		}
 	}
 

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="C:/env/jdk_v8/HotelCDA/Libraries/activation-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/env/jdk_v8/HotelCDA/Libraries/jakarta.activation-api-2.1.0-RC1.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/env/jdk_v8/HotelCDA/Libraries/javax.mail.jar"/>
+	<classpathentry kind="lib" path="D:/DEV/Java/Projets Eclipse/HotelCDA/Libraries/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/DEV/Java/Projets Eclipse/HotelCDA/Libraries/itextpdf-5.4.0.jar"/>
+	<classpathentry kind="lib" path="D:/DEV/Java/Projets Eclipse/HotelCDA/Libraries/jakarta.activation-api-2.1.0-RC1.jar"/>
+	<classpathentry kind="lib" path="D:/DEV/Java/Projets Eclipse/HotelCDA/Libraries/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

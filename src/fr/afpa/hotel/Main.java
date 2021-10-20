@@ -1,13 +1,17 @@
 package fr.afpa.hotel;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 import com.itextpdf.text.DocumentException;
 
 public class Main {
 
-	public static void main(String args[]) throws FileNotFoundException, DocumentException {
+	public static void main(String args[]) throws DocumentException, AddressException, MessagingException, IOException {
 
 		Scanner scanner = new Scanner(System.in);
 		Hotel hotel = new Hotel();
@@ -24,12 +28,12 @@ public class Main {
 
 		hotel.listRooms();
 
-		System.out.println("Etes vous client ou employé ? ");
+		System.out.println("Etes vous client(1) ou employé(2) ? ");
 		String grade = scanner.next();
 		
-		if (grade.equalsIgnoreCase("Client")) {
+		if (grade.equalsIgnoreCase("1")) {
 			coClient = Clients.connexionClt(connexionClt);
-		} else if (grade.equalsIgnoreCase("Employé")) {
+		} else if (grade.equalsIgnoreCase("2")) {
 			coEmp = Employes.connexionEmp(coEmp);
 		}
 
