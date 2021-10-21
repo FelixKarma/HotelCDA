@@ -53,7 +53,7 @@ public class Hotel {
 				boolean rand = random.nextBoolean();
 				dispo[temp] = rand;
 				if (rand == false) {
-					idClient = random.nextInt(3);
+					idClient = random.nextInt(4);
 
 					LocalDate start = LocalDate.of(2021, 01, 01);
 					LocalDate end = LocalDate.of(2021, 12, 31);
